@@ -1,9 +1,15 @@
 from django import forms
 from .models import User
 
+
 class RegisterForm(forms.ModelForm):
+    ROLE_CHOICE = (('customer', 'Customer'), ('seller', 'Seller'))
+
+
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
+
+    role = forms.ChoiceField(choices=ROLE_CHOICE, widget=forms.Select)
 
     class Meta:
         model = User
@@ -24,6 +30,7 @@ class RegisterForm(forms.ModelForm):
             if User.objects.filter(email=email).exists():
                 raise forms.ValidationError(f"A user with this email - {email} already exists.")
             return email
+
 
 class PasswordResetForm(forms.Form):
     email = forms.EmailField(max_length=255, required=True, widget=forms.EmailInput(attrs={'placeholder': 'you@example.com'}))

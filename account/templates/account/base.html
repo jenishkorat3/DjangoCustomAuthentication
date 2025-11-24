@@ -29,8 +29,7 @@
                         {% if user.is_authenticated %}
                             <!-- Visible Only When Logged In -->
                             <li class="nav-item">
-                                <a class="nav-link" href="">Dashboard</a>
-                                {% comment %} <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a> {% endcomment %}
+                                <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
                             </li>
 
                             <!-- Django LogoutView only accepts POST method. -->

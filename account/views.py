@@ -14,6 +14,7 @@ from .models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import SetPasswordForm
 
+from core.utils import assign_permission
 
 def home(request):
     return render(request, 'account/home.html')
@@ -26,7 +27,18 @@ def register_view(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data["password"])
             user.is_active = False
+
+            role = form.cleaned_data['role']
+            if role == 'seller':
+                user.is_seller = True
+                user.is_customer = False
+            else:
+                user.is_seller = False
+                user.is_customer = True
+
             user.save()
+
+            assign_permission(user, role)
 
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
             token = default_token_generator.make_token(user)
@@ -162,3 +174,10 @@ def password_reset_confirm(request, uidb64, token):
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         messages.error(request, "An error ocurred! Please try later.")
         return redirect("password_reset")
+
+
+def dashboard(request):
+    if request.user.is_seller:
+        return render(request, 'seller/dashboard.html')
+    else:
+        return render(request, 'customer/dashboard.html')

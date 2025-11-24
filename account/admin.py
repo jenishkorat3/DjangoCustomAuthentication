@@ -15,7 +15,7 @@ class UserModelAdmin(UserAdmin):
     fieldsets = [
         ("User Credentials", {"fields": ["email", "password"]}),
         ("Personal Information", {"fields": ["name", "city"]}),
-        ("Permission", {"fields": ["is_active", "is_staff", "is_superuser", "is_customer", "is_seller"]}),
+        ("Permission", {"fields": ["is_active", "is_staff", "is_superuser", "is_customer", "is_seller", "groups", "user_permissions"]}),
         ]
 
 
@@ -38,6 +38,6 @@ class UserModelAdmin(UserAdmin):
 
     search_fields = ["email"]
     ordering = ["email", "id"]
-    filter_horizontal = []
+    filter_horizontal = ["groups", "user_permissions"]
 
 admin.site.register(User ,UserModelAdmin)

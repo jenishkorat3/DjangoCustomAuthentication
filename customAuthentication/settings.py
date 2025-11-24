@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'account',
     'customer',
     'seller',
+    'core',
+    'product',
 ]
 
 MIDDLEWARE = [
@@ -136,7 +138,7 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'live.smtp.mailtrap.io'
 EMAIL_HOST_USER = 'api'
 # api key of mailtrap
-EMAIL_HOST_PASSWORD = 'd1da9c71a9e47123007394df377af6a9'
+EMAIL_HOST_PASSWORD = '3aac755dd5dcc69dd6c54e35c5af56c5'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 
