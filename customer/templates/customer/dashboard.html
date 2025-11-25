@@ -11,4 +11,12 @@
     <button class="btn btn-danger">Change Password</button>
 </form>
 
+{% if perms.product.add_product %}
+    <a class="nav-link" href="{% url 'add_product' %}">Add Product</a>
+{% endif %}
+
+{% if perms.product.view_product %}
+    <a class="nav-link" href="{% url 'view_product_list' %}">View Product</a>
+{% endif %}
+
 {% endblock maincontent %}
